@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../App/main_task.h
+
+../Config/config.h
+
+/home/lpajsj/linux/myapp/MAINCPP/Main/main.cpp
+iostream
+-
+getopt.h
+-
+fstream
+-
+unistd.h
+-
+sys/stat.h
+-
+sys/types.h
+-
+stdio.h
+-
+stdint.h
+-
+stdlib.h
+-
+sys/wait.h
+-
+syslog.h
+-
+pwd.h
+-
+termio.h
+-
+config.h
+/home/lpajsj/linux/myapp/MAINCPP/Main/config.h
+main_task.h
+/home/lpajsj/linux/myapp/MAINCPP/Main/main_task.h
+

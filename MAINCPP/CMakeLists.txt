@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.5)
+project(HELLO)
+add_subdirectory(App)
+add_subdirectory(Config)
+include_directories(${PROJECT_SOURCE_DIR}/App ${PROJECT_SOURCE_DIR}/Config)
+link_directories(${PROJECT_SOURCE_DIR}/App ${PROJECT_SOURCE_DIR}/Config)
+add_executable(hello ${PROJECT_SOURCE_DIR}/Main/main.cpp)
+target_link_libraries(hello libmain_task libconfig)
