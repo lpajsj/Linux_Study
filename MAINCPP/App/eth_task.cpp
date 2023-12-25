@@ -9,18 +9,13 @@
 #include <stdlib.h>
 #include<sys/wait.h>
 #include <syslog.h>
-#include "main_task.h"
-void main_task_print(void)
+#include "eth_task.h"
+uint32_t cnt=0;
+void *eth_task(void *arg)
 {
-    std::cout << "/* message main_task*/" << std::endl;
-    return;
-}
-static uint32_t cnt=0;
-void * main_task(void *arg)
-{
-    std::cout << "/* this is main task*/" << std::endl;
+    std::cout << "/* this is eth task*/" << std::endl;
     while(1){
-        printf("main test %d\xd\xa",cnt++);
+        printf("eth test %d\xd\xa",cnt++);
         sleep(1);
     }
 }

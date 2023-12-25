@@ -63,6 +63,7 @@ CMAKE_BINARY_DIR = /home/lpajsj/linux/myapp/MAINCPP/build
 # Target rules for target CMakeFiles/hello.dir
 
 # All Build rule for target.
+CMakeFiles/hello.dir/all: App/CMakeFiles/libeth_task.dir/all
 CMakeFiles/hello.dir/all: App/CMakeFiles/libmain_task.dir/all
 CMakeFiles/hello.dir/all: Config/CMakeFiles/libconfig.dir/all
 	$(MAKE) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/depend
@@ -77,7 +78,7 @@ all: CMakeFiles/hello.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/hello.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lpajsj/linux/myapp/MAINCPP/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lpajsj/linux/myapp/MAINCPP/build/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/hello.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/lpajsj/linux/myapp/MAINCPP/build/CMakeFiles 0
 .PHONY : CMakeFiles/hello.dir/rule
@@ -101,11 +102,13 @@ clean: CMakeFiles/hello.dir/clean
 # Directory level rules for directory App
 
 # Convenience name for "all" pass in the directory.
+App/all: App/CMakeFiles/libeth_task.dir/all
 App/all: App/CMakeFiles/libmain_task.dir/all
 
 .PHONY : App/all
 
 # Convenience name for "clean" pass in the directory.
+App/clean: App/CMakeFiles/libeth_task.dir/clean
 App/clean: App/CMakeFiles/libmain_task.dir/clean
 
 .PHONY : App/clean
@@ -116,13 +119,50 @@ App/preinstall:
 .PHONY : App/preinstall
 
 #=============================================================================
+# Target rules for target App/CMakeFiles/libeth_task.dir
+
+# All Build rule for target.
+App/CMakeFiles/libeth_task.dir/all:
+	$(MAKE) -f App/CMakeFiles/libeth_task.dir/build.make App/CMakeFiles/libeth_task.dir/depend
+	$(MAKE) -f App/CMakeFiles/libeth_task.dir/build.make App/CMakeFiles/libeth_task.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lpajsj/linux/myapp/MAINCPP/build/CMakeFiles --progress-num=5,6 "Built target libeth_task"
+.PHONY : App/CMakeFiles/libeth_task.dir/all
+
+# Include target in all.
+all: App/CMakeFiles/libeth_task.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+App/CMakeFiles/libeth_task.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lpajsj/linux/myapp/MAINCPP/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 App/CMakeFiles/libeth_task.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lpajsj/linux/myapp/MAINCPP/build/CMakeFiles 0
+.PHONY : App/CMakeFiles/libeth_task.dir/rule
+
+# Convenience name for target.
+libeth_task: App/CMakeFiles/libeth_task.dir/rule
+
+.PHONY : libeth_task
+
+# clean rule for target.
+App/CMakeFiles/libeth_task.dir/clean:
+	$(MAKE) -f App/CMakeFiles/libeth_task.dir/build.make App/CMakeFiles/libeth_task.dir/clean
+.PHONY : App/CMakeFiles/libeth_task.dir/clean
+
+# clean rule for target.
+clean: App/CMakeFiles/libeth_task.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target App/CMakeFiles/libmain_task.dir
 
 # All Build rule for target.
 App/CMakeFiles/libmain_task.dir/all:
 	$(MAKE) -f App/CMakeFiles/libmain_task.dir/build.make App/CMakeFiles/libmain_task.dir/depend
 	$(MAKE) -f App/CMakeFiles/libmain_task.dir/build.make App/CMakeFiles/libmain_task.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lpajsj/linux/myapp/MAINCPP/build/CMakeFiles --progress-num=5,6 "Built target libmain_task"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lpajsj/linux/myapp/MAINCPP/build/CMakeFiles --progress-num=7,8 "Built target libmain_task"
 .PHONY : App/CMakeFiles/libmain_task.dir/all
 
 # Include target in all.

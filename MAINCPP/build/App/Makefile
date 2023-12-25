@@ -111,6 +111,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+App/CMakeFiles/libeth_task.dir/rule:
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f CMakeFiles/Makefile2 App/CMakeFiles/libeth_task.dir/rule
+.PHONY : App/CMakeFiles/libeth_task.dir/rule
+
+# Convenience name for target.
+libeth_task: App/CMakeFiles/libeth_task.dir/rule
+
+.PHONY : libeth_task
+
+# fast build rule for target.
+libeth_task/fast:
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f App/CMakeFiles/libeth_task.dir/build.make App/CMakeFiles/libeth_task.dir/build
+.PHONY : libeth_task/fast
+
+# Convenience name for target.
 App/CMakeFiles/libmain_task.dir/rule:
 	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f CMakeFiles/Makefile2 App/CMakeFiles/libmain_task.dir/rule
 .PHONY : App/CMakeFiles/libmain_task.dir/rule
@@ -124,6 +139,33 @@ libmain_task: App/CMakeFiles/libmain_task.dir/rule
 libmain_task/fast:
 	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f App/CMakeFiles/libmain_task.dir/build.make App/CMakeFiles/libmain_task.dir/build
 .PHONY : libmain_task/fast
+
+eth_task.o: eth_task.cpp.o
+
+.PHONY : eth_task.o
+
+# target to build an object file
+eth_task.cpp.o:
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f App/CMakeFiles/libeth_task.dir/build.make App/CMakeFiles/libeth_task.dir/eth_task.cpp.o
+.PHONY : eth_task.cpp.o
+
+eth_task.i: eth_task.cpp.i
+
+.PHONY : eth_task.i
+
+# target to preprocess a source file
+eth_task.cpp.i:
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f App/CMakeFiles/libeth_task.dir/build.make App/CMakeFiles/libeth_task.dir/eth_task.cpp.i
+.PHONY : eth_task.cpp.i
+
+eth_task.s: eth_task.cpp.s
+
+.PHONY : eth_task.s
+
+# target to generate assembly for a file
+eth_task.cpp.s:
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f App/CMakeFiles/libeth_task.dir/build.make App/CMakeFiles/libeth_task.dir/eth_task.cpp.s
+.PHONY : eth_task.cpp.s
 
 main_task.o: main_task.cpp.o
 
@@ -160,7 +202,11 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... libeth_task"
 	@echo "... libmain_task"
+	@echo "... eth_task.o"
+	@echo "... eth_task.i"
+	@echo "... eth_task.s"
 	@echo "... main_task.o"
 	@echo "... main_task.i"
 	@echo "... main_task.s"

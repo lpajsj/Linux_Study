@@ -1,0 +1,2 @@
+/usr/bin/ar qc libeth_task.a  CMakeFiles/libeth_task.dir/eth_task.cpp.o
+/usr/bin/ranlib libeth_task.a

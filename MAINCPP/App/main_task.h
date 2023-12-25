@@ -1,12 +1,12 @@
-#ifndef SRC_APP_MAIN_TASK_H_
-#define SRC_APP_MAIN_TASK_H_
+#ifndef LPAJSJ_MAIN_TASK_H_
+#define LPAJSJ_MAIN_TASK_H_
 
 #ifdef __cplusplus
  extern "C" {
 #endif
 
 void main_task_print(void);
-
+void * main_task(void *arg);
 
 
 
@@ -17,4 +17,4 @@ void main_task_print(void);
 }
 #endif
 
-#endif /* SRC_APP_MAIN_TASK_H_ */
+#endif /*  */

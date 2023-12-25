@@ -6,6 +6,8 @@
 
 #IncludeRegexTransform: 
 
+../App/eth_task.h
+
 ../App/main_task.h
 
 ../Config/config.h
@@ -33,12 +35,18 @@ sys/wait.h
 -
 syslog.h
 -
+signal.h
+-
 pwd.h
 -
 termio.h
+-
+pthread.h
 -
 config.h
 /home/lpajsj/linux/myapp/MAINCPP/Main/config.h
 main_task.h
 /home/lpajsj/linux/myapp/MAINCPP/Main/main_task.h
+eth_task.h
+/home/lpajsj/linux/myapp/MAINCPP/Main/eth_task.h
 

@@ -46,6 +46,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/hello.dir/DependInfo.cmake"
+  "App/CMakeFiles/libeth_task.dir/DependInfo.cmake"
   "App/CMakeFiles/libmain_task.dir/DependInfo.cmake"
   "Config/CMakeFiles/libconfig.dir/DependInfo.cmake"
   )

@@ -124,6 +124,19 @@ hello/fast:
 .PHONY : hello/fast
 
 #=============================================================================
+# Target rules for targets named libeth_task
+
+# Build rule for target.
+libeth_task: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 libeth_task
+.PHONY : libeth_task
+
+# fast build rule for target.
+libeth_task/fast:
+	$(MAKE) -f App/CMakeFiles/libeth_task.dir/build.make App/CMakeFiles/libeth_task.dir/build
+.PHONY : libeth_task/fast
+
+#=============================================================================
 # Target rules for targets named libmain_task
 
 # Build rule for target.
@@ -185,6 +198,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... hello"
+	@echo "... libeth_task"
 	@echo "... libmain_task"
 	@echo "... libconfig"
 	@echo "... Main/main.o"

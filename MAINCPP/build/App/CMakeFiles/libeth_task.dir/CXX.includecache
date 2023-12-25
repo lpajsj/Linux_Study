@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/lpajsj/linux/myapp/MAINCPP/App/eth_task.cpp
+iostream
+-
+getopt.h
+-
+fstream
+-
+unistd.h
+-
+sys/stat.h
+-
+sys/types.h
+-
+stdio.h
+-
+stdint.h
+-
+stdlib.h
+-
+sys/wait.h
+-
+syslog.h
+-
+eth_task.h
+/home/lpajsj/linux/myapp/MAINCPP/App/eth_task.h
+
+/home/lpajsj/linux/myapp/MAINCPP/App/eth_task.h
+

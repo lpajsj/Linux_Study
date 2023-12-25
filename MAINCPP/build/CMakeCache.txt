@@ -175,6 +175,9 @@ HELLO_SOURCE_DIR:STATIC=/home/lpajsj/linux/myapp/MAINCPP
 libconfig_LIB_DEPENDS:STATIC=
 
 //Dependencies for target
+libeth_task_LIB_DEPENDS:STATIC=
+
+//Dependencies for target
 libmain_task_LIB_DEPENDS:STATIC=
 
 
