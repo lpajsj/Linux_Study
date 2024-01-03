@@ -1,4 +1,4 @@
-# Install script for directory: /home/lpajsj/linux/myapp/MAINCPP
+# Install script for directory: /home/lpajsj/linux/myapp/MAINCPP/Mylib
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -32,21 +32,3 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   set(CMAKE_INSTALL_SO_NO_EXE "1")
 endif()
 
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  include("/home/lpajsj/linux/myapp/MAINCPP/build/App/cmake_install.cmake")
-  include("/home/lpajsj/linux/myapp/MAINCPP/build/Config/cmake_install.cmake")
-  include("/home/lpajsj/linux/myapp/MAINCPP/build/Mylib/cmake_install.cmake")
-
-endif()
-
-if(CMAKE_INSTALL_COMPONENT)
-  set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
-else()
-  set(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
-endif()
-
-string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
-       "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/lpajsj/linux/myapp/MAINCPP/build/${CMAKE_INSTALL_MANIFEST}"
-     "${CMAKE_INSTALL_MANIFEST_CONTENT}")

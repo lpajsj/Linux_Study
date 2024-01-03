@@ -12,6 +12,8 @@
 
 ../Config/config.h
 
+../Mylib/lpajsj_log.h
+
 /home/lpajsj/linux/myapp/MAINCPP/Main/main.cpp
 iostream
 -
@@ -49,4 +51,6 @@ main_task.h
 /home/lpajsj/linux/myapp/MAINCPP/Main/main_task.h
 eth_task.h
 /home/lpajsj/linux/myapp/MAINCPP/Main/eth_task.h
+lpajsj_log.h
+/home/lpajsj/linux/myapp/MAINCPP/Main/lpajsj_log.h
 

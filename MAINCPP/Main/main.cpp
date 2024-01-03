@@ -21,9 +21,12 @@
 #include "config.h"
 #include "main_task.h"
 #include "eth_task.h"
+#include "lpajsj_log.h"
+
 char BuildTime[]={"BuildTime[" __TIME__ " " __DATE__ "]"};
 pthread_t main_thread;
 pthread_t eth_thread;
+pthread_t log_thread;
 static const struct option long_options[] = {
 			{"test", no_argument, NULL,'t'},
 			{"help",	no_argument,NULL, 'h'},
@@ -101,6 +104,7 @@ int main(int argc, char* argv[])
 		std::cout << "/* input a */" << std::endl;
 		ret=pthread_create(&main_thread,NULL,main_task,NULL);
 		ret=pthread_create(&eth_thread,NULL,eth_task,NULL);
+		ret=pthread_create(&log_thread,NULL,log_task,NULL);
 
 		while(1)
 		{

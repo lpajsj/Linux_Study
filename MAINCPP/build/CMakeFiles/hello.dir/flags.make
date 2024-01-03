@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/lpajsj/linux/myapp/MAINCPP/App -I/home/lpajsj/linux/myapp/MAINCPP/Config 
+CXX_INCLUDES = -I/home/lpajsj/linux/myapp/MAINCPP/App -I/home/lpajsj/linux/myapp/MAINCPP/Config -I/home/lpajsj/linux/myapp/MAINCPP/Mylib 
 

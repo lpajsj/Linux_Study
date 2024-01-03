@@ -8,3 +8,6 @@
 /home/lpajsj/linux/myapp/MAINCPP/build/Config/CMakeFiles/edit_cache.dir
 /home/lpajsj/linux/myapp/MAINCPP/build/Config/CMakeFiles/rebuild_cache.dir
 /home/lpajsj/linux/myapp/MAINCPP/build/Config/CMakeFiles/libconfig.dir
+/home/lpajsj/linux/myapp/MAINCPP/build/Mylib/CMakeFiles/edit_cache.dir
+/home/lpajsj/linux/myapp/MAINCPP/build/Mylib/CMakeFiles/rebuild_cache.dir
+/home/lpajsj/linux/myapp/MAINCPP/build/Mylib/CMakeFiles/liblog.dir

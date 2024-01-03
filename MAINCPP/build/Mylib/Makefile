@@ -80,14 +80,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lpajsj/linux/myapp/MAINCPP/build/CMakeFiles /home/lpajsj/linux/myapp/MAINCPP/build/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/lpajsj/linux/myapp/MAINCPP/build/CMakeFiles /home/lpajsj/linux/myapp/MAINCPP/build/Mylib/CMakeFiles/progress.marks
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f CMakeFiles/Makefile2 Mylib/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/lpajsj/linux/myapp/MAINCPP/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles/Makefile2 clean
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f CMakeFiles/Makefile2 Mylib/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,110 +97,87 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f CMakeFiles/Makefile2 Mylib/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f CMakeFiles/Makefile2 Mylib/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named hello
+# Convenience name for target.
+Mylib/CMakeFiles/liblog.dir/rule:
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f CMakeFiles/Makefile2 Mylib/CMakeFiles/liblog.dir/rule
+.PHONY : Mylib/CMakeFiles/liblog.dir/rule
 
-# Build rule for target.
-hello: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hello
-.PHONY : hello
+# Convenience name for target.
+liblog: Mylib/CMakeFiles/liblog.dir/rule
 
-# fast build rule for target.
-hello/fast:
-	$(MAKE) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/build
-.PHONY : hello/fast
-
-#=============================================================================
-# Target rules for targets named libeth_task
-
-# Build rule for target.
-libeth_task: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 libeth_task
-.PHONY : libeth_task
-
-# fast build rule for target.
-libeth_task/fast:
-	$(MAKE) -f App/CMakeFiles/libeth_task.dir/build.make App/CMakeFiles/libeth_task.dir/build
-.PHONY : libeth_task/fast
-
-#=============================================================================
-# Target rules for targets named libmain_task
-
-# Build rule for target.
-libmain_task: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 libmain_task
-.PHONY : libmain_task
-
-# fast build rule for target.
-libmain_task/fast:
-	$(MAKE) -f App/CMakeFiles/libmain_task.dir/build.make App/CMakeFiles/libmain_task.dir/build
-.PHONY : libmain_task/fast
-
-#=============================================================================
-# Target rules for targets named libconfig
-
-# Build rule for target.
-libconfig: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 libconfig
-.PHONY : libconfig
-
-# fast build rule for target.
-libconfig/fast:
-	$(MAKE) -f Config/CMakeFiles/libconfig.dir/build.make Config/CMakeFiles/libconfig.dir/build
-.PHONY : libconfig/fast
-
-#=============================================================================
-# Target rules for targets named liblog
-
-# Build rule for target.
-liblog: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 liblog
 .PHONY : liblog
 
 # fast build rule for target.
 liblog/fast:
-	$(MAKE) -f Mylib/CMakeFiles/liblog.dir/build.make Mylib/CMakeFiles/liblog.dir/build
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f Mylib/CMakeFiles/liblog.dir/build.make Mylib/CMakeFiles/liblog.dir/build
 .PHONY : liblog/fast
 
-Main/main.o: Main/main.cpp.o
+__/Lib/src/fifo_buffer.o: __/Lib/src/fifo_buffer.c.o
 
-.PHONY : Main/main.o
+.PHONY : __/Lib/src/fifo_buffer.o
 
 # target to build an object file
-Main/main.cpp.o:
-	$(MAKE) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/Main/main.cpp.o
-.PHONY : Main/main.cpp.o
+__/Lib/src/fifo_buffer.c.o:
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f Mylib/CMakeFiles/liblog.dir/build.make Mylib/CMakeFiles/liblog.dir/__/Lib/src/fifo_buffer.c.o
+.PHONY : __/Lib/src/fifo_buffer.c.o
 
-Main/main.i: Main/main.cpp.i
+__/Lib/src/fifo_buffer.i: __/Lib/src/fifo_buffer.c.i
 
-.PHONY : Main/main.i
+.PHONY : __/Lib/src/fifo_buffer.i
 
 # target to preprocess a source file
-Main/main.cpp.i:
-	$(MAKE) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/Main/main.cpp.i
-.PHONY : Main/main.cpp.i
+__/Lib/src/fifo_buffer.c.i:
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f Mylib/CMakeFiles/liblog.dir/build.make Mylib/CMakeFiles/liblog.dir/__/Lib/src/fifo_buffer.c.i
+.PHONY : __/Lib/src/fifo_buffer.c.i
 
-Main/main.s: Main/main.cpp.s
+__/Lib/src/fifo_buffer.s: __/Lib/src/fifo_buffer.c.s
 
-.PHONY : Main/main.s
+.PHONY : __/Lib/src/fifo_buffer.s
 
 # target to generate assembly for a file
-Main/main.cpp.s:
-	$(MAKE) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/Main/main.cpp.s
-.PHONY : Main/main.cpp.s
+__/Lib/src/fifo_buffer.c.s:
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f Mylib/CMakeFiles/liblog.dir/build.make Mylib/CMakeFiles/liblog.dir/__/Lib/src/fifo_buffer.c.s
+.PHONY : __/Lib/src/fifo_buffer.c.s
+
+lpajsj_log.o: lpajsj_log.c.o
+
+.PHONY : lpajsj_log.o
+
+# target to build an object file
+lpajsj_log.c.o:
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f Mylib/CMakeFiles/liblog.dir/build.make Mylib/CMakeFiles/liblog.dir/lpajsj_log.c.o
+.PHONY : lpajsj_log.c.o
+
+lpajsj_log.i: lpajsj_log.c.i
+
+.PHONY : lpajsj_log.i
+
+# target to preprocess a source file
+lpajsj_log.c.i:
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f Mylib/CMakeFiles/liblog.dir/build.make Mylib/CMakeFiles/liblog.dir/lpajsj_log.c.i
+.PHONY : lpajsj_log.c.i
+
+lpajsj_log.s: lpajsj_log.c.s
+
+.PHONY : lpajsj_log.s
+
+# target to generate assembly for a file
+lpajsj_log.c.s:
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(MAKE) -f Mylib/CMakeFiles/liblog.dir/build.make Mylib/CMakeFiles/liblog.dir/lpajsj_log.c.s
+.PHONY : lpajsj_log.c.s
 
 # Help Target
 help:
@@ -210,14 +187,13 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... hello"
-	@echo "... libeth_task"
-	@echo "... libmain_task"
-	@echo "... libconfig"
 	@echo "... liblog"
-	@echo "... Main/main.o"
-	@echo "... Main/main.i"
-	@echo "... Main/main.s"
+	@echo "... __/Lib/src/fifo_buffer.o"
+	@echo "... __/Lib/src/fifo_buffer.i"
+	@echo "... __/Lib/src/fifo_buffer.s"
+	@echo "... lpajsj_log.o"
+	@echo "... lpajsj_log.i"
+	@echo "... lpajsj_log.s"
 .PHONY : help
 
 
@@ -229,6 +205,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/lpajsj/linux/myapp/MAINCPP/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

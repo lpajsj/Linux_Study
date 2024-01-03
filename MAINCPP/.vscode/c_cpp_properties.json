@@ -5,7 +5,9 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/Config",
-                "${workspaceFolder}/App"
+                "${workspaceFolder}/App",
+                "${workspaceFolder}/Lib/inc",
+                "${workspaceFolder}/Mylib"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/g++",

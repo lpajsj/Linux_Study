@@ -4,5 +4,6 @@
 CMakeFiles/hello.dir/Main/main.cpp.o: ../App/eth_task.h
 CMakeFiles/hello.dir/Main/main.cpp.o: ../App/main_task.h
 CMakeFiles/hello.dir/Main/main.cpp.o: ../Config/config.h
+CMakeFiles/hello.dir/Main/main.cpp.o: ../Mylib/lpajsj_log.h
 CMakeFiles/hello.dir/Main/main.cpp.o: ../Main/main.cpp
 

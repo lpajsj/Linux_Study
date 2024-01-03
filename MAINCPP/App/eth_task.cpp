@@ -10,7 +10,7 @@
 #include<sys/wait.h>
 #include <syslog.h>
 #include "eth_task.h"
-uint32_t cnt=0;
+static uint32_t cnt=0;
 void *eth_task(void *arg)
 {
     std::cout << "/* this is eth task*/" << std::endl;

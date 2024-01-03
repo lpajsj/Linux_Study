@@ -93,6 +93,7 @@ hello: CMakeFiles/hello.dir/build.make
 hello: App/libmain_task.a
 hello: App/libeth_task.a
 hello: Config/libconfig.a
+hello: Mylib/liblog.a
 hello: CMakeFiles/hello.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lpajsj/linux/myapp/MAINCPP/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable hello"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hello.dir/link.txt --verbose=$(VERBOSE)

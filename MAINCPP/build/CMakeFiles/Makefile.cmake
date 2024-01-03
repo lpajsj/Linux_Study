@@ -10,6 +10,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "../App/CMakeLists.txt"
   "../CMakeLists.txt"
   "../Config/CMakeLists.txt"
+  "../Mylib/CMakeLists.txt"
   "CMakeFiles/3.5.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.5.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.5.1/CMakeSystem.cmake"
@@ -41,6 +42,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "App/CMakeFiles/CMakeDirectoryInformation.cmake"
   "Config/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "Mylib/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -49,4 +51,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "App/CMakeFiles/libeth_task.dir/DependInfo.cmake"
   "App/CMakeFiles/libmain_task.dir/DependInfo.cmake"
   "Config/CMakeFiles/libconfig.dir/DependInfo.cmake"
+  "Mylib/CMakeFiles/liblog.dir/DependInfo.cmake"
   )

@@ -12,6 +12,7 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../App"
   "../Config"
+  "../Mylib"
   )
 
 # Targets to which this target links.
@@ -19,6 +20,7 @@ set(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/lpajsj/linux/myapp/MAINCPP/build/App/CMakeFiles/libmain_task.dir/DependInfo.cmake"
   "/home/lpajsj/linux/myapp/MAINCPP/build/App/CMakeFiles/libeth_task.dir/DependInfo.cmake"
   "/home/lpajsj/linux/myapp/MAINCPP/build/Config/CMakeFiles/libconfig.dir/DependInfo.cmake"
+  "/home/lpajsj/linux/myapp/MAINCPP/build/Mylib/CMakeFiles/liblog.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.
