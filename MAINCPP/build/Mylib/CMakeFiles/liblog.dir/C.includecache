@@ -37,6 +37,12 @@ syslog.h
 -
 signal.h
 -
+stdarg.h
+-
+sys/time.h
+-
+string.h
+-
 pwd.h
 -
 termio.h
