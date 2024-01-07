@@ -20,7 +20,7 @@ void * main_task(void *arg)
 {
     std::cout << "/* this is main task*/" << std::endl;
     while(1){
-        printf("main test %d\xd\xa",cnt++);
+        // printf("main test %d\xd\xa",cnt++);
         sleep(1);
     }
 }

@@ -15,7 +15,7 @@ void *eth_task(void *arg)
 {
     std::cout << "/* this is eth task*/" << std::endl;
     while(1){
-        printf("eth test %d\xd\xa",cnt++);
+        // printf("eth test %d\xd\xa",cnt++);
         sleep(1);
     }
 }

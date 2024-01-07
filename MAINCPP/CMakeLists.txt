@@ -9,3 +9,4 @@ include_directories(${PROJECT_SOURCE_DIR}/App ${PROJECT_SOURCE_DIR}/Config ${PRO
 link_directories(${PROJECT_SOURCE_DIR}/App ${PROJECT_SOURCE_DIR}/Config ${PROJECT_SOURCE_DIR}/Mylib)
 add_executable(hello ${PROJECT_SOURCE_DIR}/Main/main.cpp)
 target_link_libraries(hello libmain_task libeth_task libconfig liblog pthread)
+set_target_properties(hello PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/)

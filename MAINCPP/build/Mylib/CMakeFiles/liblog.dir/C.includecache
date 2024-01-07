@@ -43,6 +43,12 @@ sys/time.h
 -
 string.h
 -
+dirent.h
+-
+libgen.h
+-
+stdbool.h
+-
 pwd.h
 -
 termio.h

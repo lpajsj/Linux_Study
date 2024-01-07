@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
 
 		while(1)
 		{
-			printf("test %d\xd\xa",cnt++);
+			// printf("test %d\xd\xa",cnt++);
 			sleep(1);
 		}
 		exit(EXIT_SUCCESS);
