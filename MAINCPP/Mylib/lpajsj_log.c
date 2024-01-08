@@ -77,7 +77,11 @@ void log_clean_file()
         while((dirfile=readdir(dir))!= NULL)
         {
             log_error("%d",dirfile->d_type);
-            if(dirfile->d_type == DT_REG)
+            if(strcmp(dirfile->d_name,".")==0&&strcmp(dirfile->d_name,"..")==0)
+            {
+                continue;
+            }
+            else if(dirfile->d_type == DT_REG)
             {
                 char *name=dirfile->d_name;
                 char *p=filenamenum;
@@ -123,6 +127,24 @@ void log_clean_file()
             }
             
         }
+        closedir(dir);
+        if(logendcnt>9000)
+        {
+            dir=opendir(file);
+            while((dirfile=readdir(dir))!= NULL)
+            {
+                if(strcmp(dirfile->d_name,".")!=0&&strcmp(dirfile->d_name,"..")!=0)
+                {
+                memset(file,0,sizeof(file));
+                sprintf(file,"%s/%s/%s",buf,LOG_FILE_NAME,dirfile->d_name);
+                if(remove(file)!=0)
+                {
+                    log_error("remove file error");
+                }
+                }
+            }
+            closedir(dir);
+        }
         if(filesum>10)
         {
             if(filename[0]!=0)
@@ -152,6 +174,42 @@ bool log_file_creat(char *file)
         return false;
     }
     return true;
+}
+uint32_t log_file_getwritedata(uint8_t all_fifo)
+{
+    uint32_t buflen;
+    buflen = fifoBuf_getUsed(&log_fifo_buffer);
+    if(buflen>=log_buffer_size/2)
+    {
+        if(buflen>=log_buffer_size)
+        {
+            log_warn("log fifo full");
+        }
+        buflen=log_buffer_size/2;
+        fifoBuf_getData(&log_fifo_buffer,logbuf,buflen);
+    }
+    else
+    {
+        if(all_fifo>0&&buflen>0)
+        {
+            fifoBuf_getData(&log_fifo_buffer,logbuf,buflen);
+        }
+        else
+        {
+            buflen=0;
+        }
+        
+    }
+    return buflen;
+}
+void log_file_save(uint8_t all_fifo)
+{
+    char buf[512]={0};
+    char file[512]={0};
+    realpath("/proc/self/exe",buf);
+    *strrchr(buf,'/')=0;
+    sprintf(file,"%s/%s",buf,LOG_FILE_NAME);
+    log_debug("%s",file);
 }
 void log_init(void)
 {
