@@ -27,7 +27,8 @@
 
 #include "lpajsj_log.h"
 #include "fifo_buffer.h"
-
+static pthread_mutex_t mutex_loglock=PTHREAD_MUTEX_INITIALIZER;
+#define log_file_max_size 1024*1024*5
 #define log_buffer_size 4096*4
 #define LOG_FILE_NAME "Log"
 t_fifo_buffer log_fifo_buffer;
@@ -41,7 +42,7 @@ uint16_t newdate=0;
 uint8_t logendcnt=0;
 uint8_t creatfile_flag=1;
 FILE *fp=NULL;
-uint16_t filesize;
+uint32_t filesize;
 char logfilename[256];
 void log_clean_file()
 {
@@ -178,7 +179,9 @@ bool log_file_creat(char *file)
 uint32_t log_file_getwritedata(uint8_t all_fifo)
 {
     uint32_t buflen;
+    memset(logbuf,0,sizeof(logbuf));
     buflen = fifoBuf_getUsed(&log_fifo_buffer);
+    pthread_mutex_lock(&mutex_loglock);
     if(buflen>=log_buffer_size/2)
     {
         if(buflen>=log_buffer_size)
@@ -200,16 +203,102 @@ uint32_t log_file_getwritedata(uint8_t all_fifo)
         }
         
     }
+    pthread_mutex_unlock(&mutex_loglock);
     return buflen;
+}
+void log_file_writedata(uint8_t *buf,uint16_t len)
+{
+    uint32_t buflen;
+    if(log_fifo_buffer.buf_ptr==NULL)
+    return;
+    pthread_mutex_lock(&mutex_loglock);
+    fifoBuf_putData(&log_fifo_buffer,buf,len);
+    pthread_mutex_unlock(&mutex_loglock);
+    return;
 }
 void log_file_save(uint8_t all_fifo)
 {
     char buf[512]={0};
     char file[512]={0};
+    uint32_t buflen;
+    static uint16_t timecnt=0;
+    uint32_t writestatus=0;
+    time_t sec;
+    struct tm *PTM;
+    time(&sec);
+    PTM=localtime(&sec);
     realpath("/proc/self/exe",buf);
     *strrchr(buf,'/')=0;
     sprintf(file,"%s/%s",buf,LOG_FILE_NAME);
     log_debug("%s",file);
+    if(log_fifo_buffer.buf_ptr==NULL)
+    {
+        return;
+    }
+saveagain:
+    buflen=log_file_getwritedata(all_fifo);
+    if(buflen>0)
+    {
+        timecnt=0;
+    }
+    else
+    {
+        timecnt++;
+        if(timecnt>10)
+        {
+            log_file_getwritedata(0);
+            timecnt=0;
+        }
+    }
+    writestatus=fwrite(logbuf,sizeof(uint8_t),buflen,fp);
+creatagain:
+    if(writestatus==buflen)
+    {
+        if(filesize>=log_file_max_size||creatfile_flag>0)
+        {
+            if(newdate != (newdate=(PTM->tm_mon+1)<<8 | (PTM->tm_mday)))
+            {
+                newdate=(PTM->tm_mon+1)<<8 | (PTM->tm_mday);
+                // logendcnt=0;
+            }
+            sprintf((char *)(logfilename),"%s/%04d%02d%02d%04d.txt",file,PTM->tm_year+1900,PTM->tm_mon+1,PTM->tm_mday,logendcnt);
+            log_debug("%s",logfilename);
+            if(fp!=NULL)
+            {
+                fclose(fp);
+            }
+            fp=fopen(logfilename,"r+");
+            if(fp!=NULL)
+            {
+
+                fseek(fp,0,SEEK_END);
+                filesize=ftell(fp);
+                if(creatfile_flag>0)
+                {
+                    if(filesize>log_file_max_size)
+                    {
+                        creatfile_flag=1;
+                        logendcnt++;
+                        fclose(fp);
+                        log_info("open file fail %s",logfilename);
+                        creatfile_flag=1;
+                        goto creatagain;
+                    }
+                    else
+                    {
+                        log_info("open file %s",logfilename);
+                        creatfile_flag=0;
+                    }
+                }
+            }
+            else
+            {
+                log_file_creat(logfilename);
+                filesize=0;
+                creatfile_flag=0;
+            }
+        }
+    }
 }
 void log_init(void)
 {
@@ -253,12 +342,13 @@ void log_init(void)
     {
         fseek(fp,0,SEEK_END);
         filesize=ftell(fp);
-        if(filesize>1024*1024)
+        if(filesize>log_file_max_size)
         {
             creatfile_flag=1;
             logendcnt++;
             fclose(fp);
             log_info("open file fail %s",logfilename);
+            creatfile_flag=1;
             goto creatnext;
         }
         else
@@ -270,6 +360,8 @@ void log_init(void)
     else
     {
         log_file_creat(logfilename);
+        filesize=0;
+        creatfile_flag=0;
     }
     fifoBuf_putData(&log_fifo_buffer,test,20);
     len=fifoBuf_getUsed(&log_fifo_buffer);
@@ -305,6 +397,11 @@ void _log_info(char *file,uint16_t line,const char *format, ...)
     vsnprintf(p+len,256-len,format,args);
     va_end(args);
     printf("\033[0m %s\033[0m\xd\xa",p);
+    // len=strlen(p);
+    // sprintf((char *)&p[len],"\xd\xa");
+    strcat(p,"\xd\xa");
+    len=strlen(p);
+    log_file_writedata(p,len);
     return;
 }
 void _log_warn(char *file,uint16_t line,const char *format, ...)
@@ -325,6 +422,11 @@ void _log_warn(char *file,uint16_t line,const char *format, ...)
     vsnprintf(p+len,256-len,format,args);
     va_end(args);
     printf("\033[33m %s\033[0m\xd\xa",p);
+    // len=strlen(p);
+    // sprintf((char *)&p[len],"\xd\xa");
+    strcat(p,"\xd\xa");
+    len=strlen(p);
+    log_file_writedata(p,len);
     return;
 }
 void _log_debug(char *file,uint16_t line,const char *format, ...)
@@ -345,6 +447,11 @@ void _log_debug(char *file,uint16_t line,const char *format, ...)
     vsnprintf(p+len,256-len,format,args);
     va_end(args);
     printf("\033[32m %s\033[0m\xd\xa",p);
+    // len=strlen(p);
+    // sprintf((char *)&p[len],"\xd\xa");
+    strcat(p,"\xd\xa");
+    len=strlen(p);
+    log_file_writedata(p,len);
     return;
 }
 void _log_error(char *file,uint16_t line,const char *format, ...)
@@ -365,6 +472,11 @@ void _log_error(char *file,uint16_t line,const char *format, ...)
     vsnprintf(p+len,256-len,format,args);
     va_end(args);
     printf("\033[31m %s\033[0m\xd\xa",p);
+    // len=strlen(p);
+    // sprintf((char *)&p[len],"\xd\xa");
+    strcat(p,"\xd\xa");
+    len=strlen(p);
+    log_file_writedata(p,len);
     return;
 }
 // static uint32_t cnt1=0;
