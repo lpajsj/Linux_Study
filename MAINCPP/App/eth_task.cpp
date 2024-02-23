@@ -10,12 +10,16 @@
 #include<sys/wait.h>
 #include <syslog.h>
 #include "eth_task.h"
-static uint32_t cnt=0;
+extern uint32_t exit_flag;
 void *eth_task(void *arg)
 {
+    uint32_t cnt=0;
     std::cout << "/* this is eth task*/" << std::endl;
     while(1){
         // printf("eth test %d\xd\xa",cnt++);
         sleep(1);
+        if(exit_flag){
+            pthread_exit(NULL);
+        }
     }
 }

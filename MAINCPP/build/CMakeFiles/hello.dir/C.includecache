@@ -14,7 +14,7 @@
 
 ../Mylib/lpajsj_log.h
 
-/home/lpajsj/linux/myapp/MAINCPP/Main/main.cpp
+/home/lpajsj/linux/myapp/MAINCPP/Main/main.c
 getopt.h
 -
 unistd.h
