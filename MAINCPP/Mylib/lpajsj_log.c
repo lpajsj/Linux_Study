@@ -51,10 +51,9 @@ void log_init(void)
     time_t sec;
     struct tm *PTM;
     // struct timeval secus;
-
     fifoBuf_init(&log_fifo_buffer,log_buffer,log_buffer_size); //初始化当前buff
     // readlink("/proc/self/exe",buf,256);
-    realpath("/proc/self/exe",buf);
+    realpath("/proc/self/exe",buf); //读取当前程序路径
     *strrchr(buf,'/')=0;
     // *strrchr(buf,'/')=0;
     // char  *p=dirname(buf);
@@ -65,7 +64,7 @@ void log_init(void)
     PTM=localtime(&sec);
     if(newdate==0)
     {
-        newdate=(PTM->tm_mon+1)<<8 | (PTM->tm_mday); //获取当前月和日
+        newdate=(PTM->tm_mon+1)<<8 | (PTM->tm_mday); //获取当前月和日0x01 01
     }
     //清理文件
   creatnext:
@@ -75,7 +74,7 @@ void log_init(void)
     if(newdate != ((PTM->tm_mon+1)<<8 | (PTM->tm_mday)))
     {
         newdate=(PTM->tm_mon+1)<<8 | (PTM->tm_mday);
-        // logendcnt=0;
+        // logendcnt=0;f
     }
         sprintf((char *)(logfilename),"%s/%04d%02d%02d%04d.txt",file,PTM->tm_year+1900,PTM->tm_mon+1,PTM->tm_mday,logendcnt);
         log_debug("%s",logfilename);
@@ -85,38 +84,40 @@ void log_init(void)
     {
         fseek(fp,0,SEEK_END);
         filesize=ftell(fp);
-        if(filesize>log_file_max_size)
+        if(filesize>log_file_max_size) //文件大创建新文件
         {
             creatfile_flag=1;
             logendcnt++;
             fclose(fp);
-            log_info("open file fail %s",logfilename);
+            log_info("now file full: %s",logfilename);
             creatfile_flag=1;
-            goto creatnext;
+            goto creatnext;//清理文件重新创建
         }
         else
         {
-            log_info("open file %s",logfilename);
+            log_info("open success: %s",logfilename);
         }
         
     }
     else
     {
-        log_file_creat(logfilename);
+        if(log_file_creat(logfilename)) //没有这个文件创建
+        {
         filesize=0;
         creatfile_flag=0;
+        }
+        else
+        {
+            pthread_exit(NULL);
+        }
     }
-    // fifoBuf_putData(&log_fifo_buffer,test,20);
-    // len=fifoBuf_getUsed(&log_fifo_buffer);
-    // fifoBuf_getData(&log_fifo_buffer,printf_test,len);
-    // printf("test fifo %s\n",printf_test);
     return;
 }
 void log_clean_file(void)
 {
-    char buf[512]={0};
+    char buf[512]={0};  //
     char file[512]={0};
-    char filenamenum[256];
+    char filenamenum[256];//日期字符串
     char filename[256];
     DIR *dir;
     struct dirent * dirfile;
@@ -140,7 +141,7 @@ void log_clean_file(void)
         syslog(LOG_ERR,"dir open error,%s",file);
         closelog();
         log_error("open fir error");
-        mkdir(file,0777);
+        mkdir(file,0777);//设置文件权限
         dir=opendir(file);
     }
     while((dirfile=readdir(dir))!= NULL)//遍历所有文件
@@ -149,7 +150,7 @@ void log_clean_file(void)
         {
             continue;
         }
-        else if(dirfile->d_type == DT_REG)
+        else if(dirfile->d_type == DT_REG) //代表普通文件
         {
             char *name=dirfile->d_name;
             char *p=filenamenum;
@@ -165,13 +166,11 @@ void log_clean_file(void)
                     if(*name=='.'&&*(name+1)=='t'&&*(name+2)=='x'&&*(name+3)=='t')
                     {
                         filesum++;
-                        curnum=strtoul(filenamenum,NULL,10);
-                        log_error("%d,%d",curnum/10000,nowdatenum);
-                        if(curnum/10000==nowdatenum)
+                        curnum=strtoul(filenamenum,NULL,10); //字符串转换为10进制
+                        // log_info("%d,%d",curnum/10000,nowdatenum);
+                        if(curnum/10000==nowdatenum) //与当前日期相等
                         {
-                            if(newdate)
                             logendcnt++;
-                            log_debug("logendcnt:%d",logendcnt);
                         }
                         if(curnum<minfilenum)
                         {
@@ -232,11 +231,11 @@ void log_clean_file(void)
 bool log_file_creat(char *file)
 {
     log_clean_file();
-    fp=fopen(file,"a+");
+    fp=fopen(file,"a+");//读写追加创建
     if(fp==NULL)
     {
         openlog("MAINCPP",LOG_CONS|LOG_PID,LOG_USER);
-        syslog(LOG_ERR,"will remove file,%s",file);
+        syslog(LOG_ERR,"creat log file error,%s",file);
         closelog();
         log_error("creat log file error");
         return false;
@@ -283,6 +282,11 @@ void log_file_writedata(uint8_t *buf,uint16_t len)
     pthread_mutex_unlock(&mutex_loglock);
     return;
 }
+/*
+*@note 日志信息保存到文件
+*@param 0 整包保存 1 直接保存
+*@return 
+*/
 void log_file_save(uint8_t all_fifo)
 {
     char buf[512]={0};
@@ -296,14 +300,14 @@ void log_file_save(uint8_t all_fifo)
     PTM=localtime(&sec);
     realpath("/proc/self/exe",buf);
     *strrchr(buf,'/')=0;
-    sprintf(file,"%s/%s",buf,LOG_FILE_NAME);
-    log_debug("%s",file);
-    if(log_fifo_buffer.buf_ptr==NULL)
+    sprintf(file,"%s/%s",buf,LOG_FILE_NAME); //得到当前日志路径
+    // log_debug("%s",file);
+    if(log_fifo_buffer.buf_ptr==NULL) //日志环形buff未初始化
     {
         return;
     }
 saveagain:
-    buflen=log_file_getwritedata(all_fifo);
+    buflen=log_file_getwritedata(all_fifo); //获取环形buff数据长度
     if(buflen>0)
     {
         timecnt=0;
@@ -318,6 +322,7 @@ saveagain:
         }
     }
     writestatus=fwrite(logbuf,sizeof(uint8_t),buflen,fp);
+    filesize+=writestatus;
 creatagain:
     if(writestatus==buflen)
     {
@@ -326,10 +331,10 @@ creatagain:
             if(newdate != ((PTM->tm_mon+1)<<8 | (PTM->tm_mday)))
             {
                 newdate=(PTM->tm_mon+1)<<8 | (PTM->tm_mday);
-                // logendcnt=0;
+                logendcnt=0;
             }
             sprintf((char *)(logfilename),"%s/%04d%02d%02d%04d.txt",file,PTM->tm_year+1900,PTM->tm_mon+1,PTM->tm_mday,logendcnt);
-            log_debug("%s",logfilename);
+            // log_debug("%s",logfilename);
             if(fp!=NULL)
             {
                 fclose(fp);
@@ -344,10 +349,9 @@ creatagain:
                 {
                     if(filesize>log_file_max_size)
                     {
-                        creatfile_flag=1;
                         logendcnt++;
                         fclose(fp);
-                        log_info("open file fail %s",logfilename);
+                        log_info(" file fULL %s",logfilename);
                         creatfile_flag=1;
                         goto creatagain;
                     }
@@ -490,8 +494,10 @@ void *log_task(void *arg)
         // printf("log test %d\xd\xa",cnt1++);
         log_file_save(0);
         sleep(1);
+        log_debug("now file size %d",filesize);
         if(exit_flag){
             log_file_save(1);
+            log_debug("log exit");
             pthread_exit(NULL);
         }
     }

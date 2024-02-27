@@ -1,0 +1,19 @@
+[2024-02-27] [18DEAE417EF] file:lpajsj_log.c line:62 debug:/home/lpajsj/linux/myapp/MAINCPP/Log
+[2024-02-27] [18DEAE417EF] file:lpajsj_log.c line:136 debug:/home/lpajsj/linux/myapp/MAINCPP/Log
+[2024-02-27] [18DEAE417EF] file:lpajsj_log.c line:80 debug:/home/lpajsj/linux/myapp/MAINCPP/Log/202402270002.txt
+[2024-02-27] [18DEAE417EF] file:lpajsj_log.c line:136 debug:/home/lpajsj/linux/myapp/MAINCPP/Log
+[2024-02-27] [18DEAE41854] file:main.cpp line:122 debug:test 1
+[2024-02-27] [18DEAE418BB] file:main.cpp line:122 debug:test 2
+[2024-02-27] [18DEAE41920] file:main.cpp line:122 debug:test 3
+[2024-02-27] [18DEAE41984] file:main.cpp line:122 debug:test 4
+[2024-02-27] [18DEAE419E9] file:main.cpp line:122 debug:test 5
+[2024-02-27] [18DEAE41A4D] file:main.cpp line:122 debug:test 6
+[2024-02-27] [18DEAE41AB2] file:main.cpp line:122 debug:test 7
+[2024-02-27] [18DEAE41B17] file:main.cpp line:122 debug:test 8
+[2024-02-27] [18DEAE41B7B] file:main.cpp line:122 debug:test 9
+[2024-02-27] [18DEAE41BD7] file:lpajsj_log.c line:497 debug:now file size 0
+[2024-02-27] [18DEAE41BE0] file:main.cpp line:122 debug:test 10
+[2024-02-27] [18DEAE41C44] file:main.cpp line:122 debug:test 11
+[2024-02-27] [18DEAE41CA9] file:main.cpp line:122 debug:test 12
+[2024-02-27] [18DEAE41D0D] file:main.cpp line:122 debug:test 13
+[2024-02-27] [18DEAE41FC6] file:lpajsj_log.c line:497 debug:now file size 0
