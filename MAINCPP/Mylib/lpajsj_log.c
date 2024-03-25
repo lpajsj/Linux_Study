@@ -372,16 +372,6 @@ creatagain:
     }
 }
 
-
-
-
-
-
-
-
-
-
-
 void _log_info(char *file,uint16_t line,const char *format, ...)
 {
     va_list args;
@@ -394,7 +384,7 @@ void _log_info(char *file,uint16_t line,const char *format, ...)
     PTM=localtime(&sec);
     gettimeofday(&secus,NULL);
     uint64_t timesecms=secus.tv_sec*1000+secus.tv_usec/1000;  
-    uint16_t len=sprintf(p,"[%04d-%02d-%02d] [%08lX] file:%s line:%d debug:",PTM->tm_year+1900,PTM->tm_mon+1,PTM->tm_mday,timesecms,file,line);
+    uint16_t len=snprintf(p,sizeof(p),"[%04d-%02d-%02d] [%08llX] file:%s line:%d info:",PTM->tm_year+1900,PTM->tm_mon+1,PTM->tm_mday,timesecms,file,line);
     va_start(args,format);
     // p=va_arg(args,char *);
     vsnprintf(p+len,256-len,format,args);
@@ -414,12 +404,13 @@ void _log_warn(char *file,uint16_t line,const char *format, ...)
     time_t sec;
     struct tm *PTM;
     struct timeval secus;
+    // printf("%s\n",file);
     file=strrchr(file,'/')+1;
     time(&sec);
     PTM=localtime(&sec);
     gettimeofday(&secus,NULL);
     uint64_t timesecms=secus.tv_sec*1000+secus.tv_usec/1000;  
-    uint16_t len=sprintf(p,"[%04d-%02d-%02d] [%08lX] file:%s line:%d debug:",PTM->tm_year+1900,PTM->tm_mon+1,PTM->tm_mday,timesecms,file,line);
+    uint16_t len=snprintf(p,sizeof(p),"[%04d-%02d-%02d] [%08llX] file:%s line:%d warn:",PTM->tm_year+1900,PTM->tm_mon+1,PTM->tm_mday,timesecms,file,line);
     va_start(args,format);
     // p=va_arg(args,char *);
     vsnprintf(p+len,256-len,format,args);
@@ -444,7 +435,7 @@ void _log_debug(char *file,uint16_t line,const char *format, ...)
     PTM=localtime(&sec);
     gettimeofday(&secus,NULL);
     uint64_t timesecms=secus.tv_sec*1000+secus.tv_usec/1000;  
-    uint16_t len=sprintf(p,"[%04d-%02d-%02d] [%08lX] file:%s line:%d debug:",PTM->tm_year+1900,PTM->tm_mon+1,PTM->tm_mday,timesecms,file,line);
+    uint16_t len=snprintf(p,sizeof(p),"[%04d-%02d-%02d] [%08llX] file:%s line:%d debug:",PTM->tm_year+1900,PTM->tm_mon+1,PTM->tm_mday,timesecms,file,line);
     va_start(args,format);
     // p=va_arg(args,char *);
     vsnprintf(p+len,256-len,format,args);
@@ -469,7 +460,7 @@ void _log_error(char *file,uint16_t line,const char *format, ...)
     PTM=localtime(&sec);
     gettimeofday(&secus,NULL);
     uint64_t timesecms=secus.tv_sec*1000+secus.tv_usec/1000;  
-    uint16_t len=sprintf(p,"[%04d-%02d-%02d] [%08lX] file:%s line:%d debug:",PTM->tm_year+1900,PTM->tm_mon+1,PTM->tm_mday,timesecms,file,line);
+    uint16_t len=snprintf(p,sizeof(p),"[%04d-%02d-%02d] [%08llX] file:%s line:%d error:",PTM->tm_year+1900,PTM->tm_mon+1,PTM->tm_mday,timesecms,file,line);
     va_start(args,format);
     // p=va_arg(args,char *);
     vsnprintf(p+len,256-len,format,args);
@@ -491,10 +482,8 @@ void *log_task(void *arg)
     log_error( "/* this is error test*/");
     log_init();
     while(1){
-        // printf("log test %d\xd\xa",cnt1++);
         log_file_save(0);
         sleep(1);
-        log_debug("now file size %d",filesize);
         if(exit_flag){
             log_file_save(1);
             log_debug("log exit");

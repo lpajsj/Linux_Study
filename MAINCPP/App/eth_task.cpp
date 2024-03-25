@@ -10,6 +10,7 @@
 #include<sys/wait.h>
 #include <syslog.h>
 #include "eth_task.h"
+#include "lpajsj_log.h"
 extern uint32_t exit_flag;
 void *eth_task(void *arg)
 {
@@ -17,9 +18,11 @@ void *eth_task(void *arg)
     std::cout << "/* this is eth task*/" << std::endl;
     while(1){
         // printf("eth test %d\xd\xa",cnt++);
-        sleep(1);
+        
         if(exit_flag){
+            log_debug("main_task exit");
             pthread_exit(NULL);
         }
+        sleep(1);
     }
 }

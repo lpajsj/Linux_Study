@@ -1,4 +1,5 @@
 include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${PROJECT_SOURCE_DIR}/App ${PROJECT_SOURCE_DIR}/Config ${PROJECT_SOURCE_DIR}/Mylib)
 add_library(libmain_task STATIC main_task.cpp)
 set_target_properties(libmain_task PROPERTIES OUTPUT_NAME "main_task")
 add_library(libeth_task STATIC eth_task.cpp)

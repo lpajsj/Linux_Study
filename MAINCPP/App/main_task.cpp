@@ -10,6 +10,7 @@
 #include<sys/wait.h>
 #include <syslog.h>
 #include "main_task.h"
+#include "lpajsj_log.h"
 extern uint32_t exit_flag;
 void main_task_print(void)
 {
@@ -25,6 +26,7 @@ void * main_task(void *arg)
         // printf("main test %d\xd\xa",cnt++);
         sleep(1);
         if(exit_flag){
+            log_debug("main exit");
             pthread_exit(NULL);
         }
     }

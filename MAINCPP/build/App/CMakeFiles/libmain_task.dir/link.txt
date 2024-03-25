@@ -1,2 +1,0 @@
-/usr/bin/ar qc libmain_task.a  CMakeFiles/libmain_task.dir/main_task.cpp.o
-/usr/bin/ranlib libmain_task.a

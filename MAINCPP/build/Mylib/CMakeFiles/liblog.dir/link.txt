@@ -1,2 +1,0 @@
-/usr/bin/ar qc liblog.a  CMakeFiles/liblog.dir/lpajsj_log.c.o CMakeFiles/liblog.dir/__/Lib/src/fifo_buffer.c.o
-/usr/bin/ranlib liblog.a
