@@ -30,6 +30,7 @@
 #include "main_task.h"
 #include "eth_task.h"
 #include "lpajsj_log.h"
+#include "main.h"
 
 char BuildTime[]={"BuildTime[" __TIME__ " " __DATE__ "]"};
 pthread_t main_thread;
@@ -39,6 +40,8 @@ static const struct option long_options[] = {
 			{"test", no_argument, NULL,'t'},
 			{"help",	no_argument,NULL, 'h'},
 			{"goal",	no_argument,NULL, 'g'},
+			{"board",	no_argument,NULL, 'b'},
+			{"other",	no_argument,NULL, 'o'},
 			{0,		0,					0,  0}
 };
 static void usage(FILE *fp, int argc, char **argv)
@@ -53,8 +56,10 @@ static void usage(FILE *fp, int argc, char **argv)
 			 "",
 			 argv[0], BuildTime);
 }
-static const char short_options[] = "thga";
+static const char short_options[] = "thgb::o";
 uint32_t exit_flag=0;
+//board
+// extern int led_control(int argc, char *argv[]);
 void signal_handler(int sig)
 {
 	printf("\033[31m system stop\033[0m\xd\xa");
@@ -73,6 +78,7 @@ int main(int argc, char* argv[])
 		int opt_idx;
 		int opt_nxt;
 		opt_nxt = getopt_long(argc, argv, short_options, long_options, &opt_idx);
+		log_debug("%d,%c,%d",optind,opt_nxt,opt_idx);
 		if(opt_nxt < 0){
 		// std::cout << "/*Please enter the correct parameters*/" <<opt_idx<<"   "<<opt_nxt<< std::endl;
 		// std::cout << "/*for example ./hello -h */" << std::endl;
@@ -94,11 +100,20 @@ int main(int argc, char* argv[])
 				usage(stdout, argc, argv);
 				exit(EXIT_SUCCESS);
 				break;
-			case 'm':
+			case 'b':
 				// std::cout << "/*The goal of this code is to motivate me to learn*/" << std::endl;
+				if(optarg != NULL)
+				{
+					 if (!strcmp(optarg, "led"))
+					 {
+						 strcpy((argv[1]),(char *)"led");
+						 led_control(argc-1,&argv[1]);
+					 }
+					
+				}
 				exit(EXIT_SUCCESS);
 			break;
-			case 'a':
+			case 'o':
 				// std::cout << "/* input a */" << std::endl;
 				exit(EXIT_SUCCESS);
 				break;
@@ -120,8 +135,6 @@ int main(int argc, char* argv[])
 		while(1)
 		{
 			log_warn("test %d",cnt++);
-			// printf("main cpp run 1,%d",ii);
-			// log_warn("main cpp run 1");
 			usleep(100000);
 			if(exit_flag)
 			break;

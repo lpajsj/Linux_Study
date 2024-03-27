@@ -23,10 +23,12 @@ SET(CMAKE_CXX_FLAGS "-march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 
 add_subdirectory(App)
 add_subdirectory(Config)
 add_subdirectory(Mylib)
-include_directories(${PROJECT_SOURCE_DIR}/App ${PROJECT_SOURCE_DIR}/Config ${PROJECT_SOURCE_DIR}/Mylib)
+include_directories(${PROJECT_SOURCE_DIR}/App ${PROJECT_SOURCE_DIR}/Config ${PROJECT_SOURCE_DIR}/Mylib ${PROJECT_SOURCE_DIR}/Main)
 # link_directories(${PROJECT_SOURCE_DIR}/App ${PROJECT_SOURCE_DIR}/Config ${PROJECT_SOURCE_DIR}/Mylib)
+add_library(libled STATIC ${PROJECT_SOURCE_DIR}/Main/led.c)
+set_target_properties(libled PROPERTIES OUTPUT_NAME "led")
 add_executable(hello ${PROJECT_SOURCE_DIR}/Main/main.cpp)
-target_link_libraries(hello libmain_task libeth_task libconfig liblog pthread)
+target_link_libraries(hello libmain_task libeth_task libconfig liblog libled pthread )
 set_target_properties(hello PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/)
 
 
