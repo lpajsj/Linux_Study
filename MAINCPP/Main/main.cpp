@@ -106,12 +106,22 @@ int main(int argc, char* argv[])
 				{
 					 if (!strcmp(optarg, "led"))
 					 {
-						 strcpy((argv[1]),(char *)"led");
-						 led_control(argc-1,&argv[1]);
+						strcpy((argv[1]),(char *)"led");
+						led_control(argc-1,&argv[1]);
+						exit(EXIT_SUCCESS);
+					 }
+					 else if (!strcmp(optarg, "server"))
+					 {
+						ret=pthread_create(&eth_thread,NULL,eth_task,(void *)"server"); 
+					 }
+					 else if (!strcmp(optarg, "client"))
+					 {
+						ret=pthread_create(&eth_thread,NULL,eth_task,(void *)"client");
 					 }
 					
 				}
-				exit(EXIT_SUCCESS);
+
+				
 			break;
 			case 'o':
 				// std::cout << "/* input a */" << std::endl;
@@ -129,12 +139,12 @@ int main(int argc, char* argv[])
 		printf("\033[33m system start\033[0m\xd\xa");
 		// std::cout << "/* input a */" << std::endl;
 		ret=pthread_create(&main_thread,NULL,main_task,NULL);
-		ret=pthread_create(&eth_thread,NULL,eth_task,NULL);
+		// ret=pthread_create(&eth_thread,NULL,eth_task,NULL);
 		ret=pthread_create(&log_thread,NULL,log_task,NULL);
 		static uint32_t ii=0;
 		while(1)
 		{
-			log_warn("test %d",cnt++);
+			log_debug("test %d",cnt++);
 			usleep(100000);
 			if(exit_flag)
 			break;
