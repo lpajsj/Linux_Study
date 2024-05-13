@@ -101,7 +101,7 @@ int main(int argc, char* argv[])
 				exit(EXIT_SUCCESS);
 				break;
 			case 'b':
-				// std::cout << "/*The goal of this code is to motivate me to learn*/" << std::endl;
+				// std::cout << "/*The goal of this code is to motivate me to learn*/" << std::endl;//
 				if(optarg != NULL)
 				{
 					 if (!strcmp(optarg, "led"))

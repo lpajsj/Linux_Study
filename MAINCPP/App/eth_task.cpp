@@ -36,10 +36,13 @@ void *eth_task(void *arg)
     fd_set read_fdset;
     //time
     timeval timeout;
+    int opt=1;
     log_info("now eth mode is %s",mode);
     std::cout << "/* this is eth task*/" << std::endl;
     if(!strcmp(mode, "server")){
         local_ethfd=socket(AF_INET,SOCK_STREAM,IPPROTO_IP);
+        
+        setsockopt(local_ethfd,SOL_SOCKET,SO_REUSEADDR,&opt,sizeof(opt)); //设置地址重用
         server_addr.sin_family=AF_INET;
         server_addr.sin_addr.s_addr=htonl(INADDR_ANY);
         server_addr.sin_port=htons(SERVER_PORT);
@@ -58,14 +61,24 @@ void *eth_task(void *arg)
  retry:
         FD_ZERO(&read_fdset);
         FD_SET(local_ethfd,&read_fdset);
-        timeout.tv_sec=5;
+        timeout.tv_sec=1;
         timeout.tv_usec=0;
         do{
             ret=select(local_ethfd+1,&read_fdset,NULL,NULL,&timeout);
         // }while(ret<0&&errno==EINTR);
-        }while(ret<0);
+        }while(ret<0&&exit_flag==0);
+        if(exit_flag){
+            close(local_ethfd);
+            goto ethexit;
+        }
+        if(ret==0){
+            log_info("wait connet");
+            goto retry;
+        }
+        log_debug("select file change");
         remote_ethfd=accept(local_ethfd,(struct sockaddr*)&client_addr,(socklen_t*)&sockaddr_lenth);
         if(remote_ethfd<0){
+            close(local_ethfd);
             log_error("accept client error");
             exit(EXIT_FAILURE);
         }
@@ -86,22 +99,29 @@ void *eth_task(void *arg)
             memset(recvbuf,0,sizeof(recvbuf));
             ret=recv(remote_ethfd,recvbuf,sizeof(recvbuf),0);
             if(ret>0){
-                log_debug("receive,%s,111",recvbuf);
-                printf("receive %s\n",recvbuf);
+                log_debug("receive,%s,%d,%d",recvbuf,sizeof(recvbuf),strlen(recvbuf));
+                sprintf(sendbuf,"receive,%s",recvbuf);
+                ret=send(remote_ethfd,recvbuf,sizeof(recvbuf),MSG_NOSIGNAL);
+                if(ret<0){
+                    log_error("send error");
+                }
             }
             else{
                 log_error("receive error,%d",ret);
                 if((ret<0&&(errno!=EAGAIN&&errno!=EWOULDBLOCK))||ret==0){
                     perror("recv error ret");
-                goto retry;
+                    close(remote_ethfd);
+                     goto retry;
                 }
 
             }
         }
+
         if(exit_flag){
             // if(remote_ethfd!=0)
             close(remote_ethfd);
             close(local_ethfd);
+ethexit:            
             log_debug("eth_task exit");
             pthread_exit(NULL);
         }
